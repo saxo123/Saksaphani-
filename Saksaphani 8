@@ -1,0 +1,144 @@
+import React from "react";
+
+// Prototype : page unique pour vendre votre entreprise
+// Remplacez tous les placeholders (saksaphani, email, phone, chiffres) par vos données réelles.
+
+export default function SellBusinessPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900 p-6 md:p-12">
+      <header className="max-w-5xl mx-auto flex items-center justify-between">
+        <h1 className="text-3xl md:text-4xl font-extrabold">saksaphani</h1>
+        <div className="text-right">
+          <div className="text-sm">Contact: <a href="mailto:almoghirmohcine@gmail.com" className="underline">contact@votremail.com</a></div>
+          <div className="text-sm">Tél: +212610106321</div>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto mt-8 space-y-8">
+        {/* Hero */}
+        <section className="bg-white rounded-2xl p-8 shadow">
+          <div className="md:flex md:items-center md:gap-8">
+            <div className="md:flex-1">
+              <h2 className="text-2xl font-bold">Vendez votre entreprise — [Prototype]</h2>
+              <p className="mt-3 text-sm text-gray-600">Présentation rapide : boutique spécialisée, clientèle fidèle, emplacement stratégique. Ce dossier contient les chiffres clés et les actifs inclus dans la vente.</p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a className="px-4 py-2 rounded-lg border" href="#brochure">Télécharger la brochure</a>
+                <a className="px-4 py-2 rounded-lg bg-indigo-600 text-white" href="#contact">Contacter le vendeur</a>
+              </div>
+            </div>
+
+            <div className="md:w-72 mt-6 md:mt-0">
+              <div className="w-full h-44 bg-gray-100 rounded-lg flex items-center justify-center">Image / logo</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Key figures */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white p-6 rounded-2xl shadow">
+            <div className="text-sm text-gray-500">Chiffre d'affaires annuel</div>
+            <div className="mt-2 text-2xl font-semibold">€ 00,000</div>
+            <div className="text-xs text-gray-400 mt-1">(Remplacez par vos chiffres réels)</div>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl shadow">
+            <div className="text-sm text-gray-500">EBITDA</div>
+            <div className="mt-2 text-2xl font-semibold">€ 00,000</div>
+            <div className="text-xs text-gray-400 mt-1">Moyenne des 3 dernières années</div>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl shadow">
+            <div className="text-sm text-gray-500">Prix demandé</div>
+            <div className="mt-2 text-2xl font-semibold">€ 00,000</div>
+            <div className="text-xs text-gray-400 mt-1">Négociable</div>
+          </div>
+        </section>
+
+        {/* About & assets */}
+        <section className="bg-white p-6 rounded-2xl shadow grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-lg font-semibold">À propos de l'entreprise</h3>
+            <p className="mt-3 text-sm text-gray-600">Brève description de l'activité, historique, points forts, pourquoi elle est intéressante à acheter (emplacement, clientèle, marges...).</p>
+
+            <ul className="mt-4 space-y-2 text-sm">
+              <li>• Années d'activité : 0</li>
+              <li>• Local : surface X m² / contrat de bail (durée restante)</li>
+              <li>• Personnel : nombre d'employés</li>
+              <li>• Actifs inclus : stock, équipement, mobilier, marque</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold">Inventaire & actifs inclus</h3>
+            <p className="mt-3 text-sm text-gray-600">Liste succincte des éléments transmis à l'acheteur.</p>
+            <ol className="mt-4 list-decimal list-inside text-sm space-y-2 text-gray-700">
+              <li>Stock estimé : € 00,000</li>
+              <li>Équipement (machines, outils)</li>
+              <li>Mobilier & agencement</li>
+              <li>Fichier client (si transférable légalement)</li>
+            </ol>
+          </div>
+        </section>
+
+        {/* Gallery */}
+        <section className="bg-white p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-semibold">Galerie (photos)</h3>
+          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="h-28 bg-gray-100 rounded">Photo 1</div>
+            <div className="h-28 bg-gray-100 rounded">Photo 2</div>
+            <div className="h-28 bg-gray-100 rounded">Photo 3</div>
+            <div className="h-28 bg-gray-100 rounded">Photo 4</div>
+          </div>
+        </section>
+
+        {/* Financial snapshot */}
+        <section className="bg-white p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-semibold">Rapport financier synthétique</h3>
+          <p className="mt-2 text-sm text-gray-600">Tableau ou bullet points avec ventes mensuelles, coûts, bénéfice net, etc.</p>
+
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-sm table-auto">
+              <thead className="text-left text-gray-500">
+                <tr><th>Année</th><th>CA</th><th>Bénéfice net</th></tr>
+              </thead>
+              <tbody>
+                <tr className="border-t"><td>2022</td><td>€ 00,000</td><td>€ 00,000</td></tr>
+                <tr className="border-t"><td>2023</td><td>€ 00,000</td><td>€ 00,000</td></tr>
+                <tr className="border-t"><td>2024</td><td>€ 00,000</td><td>€ 00,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Contact form */}
+        <section id="contact" className="bg-white p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-semibold">Contactez le vendeur</h3>
+          <p className="mt-2 text-sm text-gray-600">Remplissez le formulaire ou contactez directement par email / téléphone.</p>
+
+          <form className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={(e)=>{e.preventDefault(); alert('Formulaire prototype — remplacez par intégration backend');}}>
+            <input className="p-3 rounded border" placeholder="Votre nom" required />
+            <input className="p-3 rounded border" placeholder="Email" type="email" required />
+            <input className="p-3 rounded border" placeholder="Téléphone" />
+            <textarea className="p-3 rounded border md:col-span-2" placeholder="Message" rows={4} />
+            <div className="md:col-span-2 flex gap-3">
+              <button type="submit" className="px-4 py-2 rounded bg-indigo-600 text-white">Envoyer le message</button>
+              <a href="#brochure" className="px-4 py-2 rounded border">Télécharger la brochure</a>
+            </div>
+          </form>
+        </section>
+
+        {/* Brochure anchor */}
+        <section id="brochure" className="bg-white p-6 rounded-2xl shadow text-center">
+          <h3 className="text-lg font-semibold">Brochure de vente</h3>
+          <p className="mt-2 text-sm text-gray-600">Inclure ici le PDF téléchargeable du dossier de cession (bilan, compte de résultat, stock, photos). Pour l'instant: lien de démonstration.</p>
+          <a className="inline-block mt-4 px-6 py-3 rounded-lg border" href="/brochure.pdf" download> Télécharger la brochure (PDF)</a>
+        </section>
+      </main>
+
+      <footer className="max-w-5xl mx-auto mt-8 text-center text-xs text-gray-500">
+        Prototype créé par votre assistant — remplacez les données et branchez un backend pour recevoir les contacts.
+      </footer>
+    </div>
+  );
+}
