@@ -1,113 +1,104 @@
-#!/bin/bash
-# هذا السكربت ينشئ كل ملفات ومجلدات مشروع Saksaphani ويضغطها في ملف ZIP جاهز للرفع
+// Saksaphani Vite + React Project
+// ملف واحد يحتوي كل الملفات المطلوبة، قم بنسخه إلى مشروعك بنفس الهيكلة
 
-# إنشاء المجلدات الأساسية
-mkdir -p Saksaphani/app/auth Saksaphani/app/admin Saksaphani/app/cart Saksaphani/app/checkout Saksaphani/app/category Saksaphani/app/products
-mkdir -p Saksaphani/components/cart Saksaphani/components/icons
-mkdir Saksaphani/models Saksaphani/lib Saksaphani/data
-mkdir -p Saksaphani/public/images/products Saksaphani/public/icons
-
-cd Saksaphani
-
-# =========================
-# إنشاء الملفات الأساسية
-# =========================
-cat > package.json <<EOL
+// ============================
+// package.json
+// ============================
 {
   "name": "saksaphani",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwindcss": "^3.3.2",
-    "postcss": "^8.4.21",
-    "autoprefixer": "^10.4.14",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0",
-    "stripe": "^12.0.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }
-EOL
 
-cat > tailwind.config.js <<EOL
-module.exports = {
-  content: ['./app/**/*.{js,ts,jsx,tsx}','./components/**/*.{js,ts,jsx,tsx}'],
-  theme: { extend: { colors: { gold:'#FFD700' } } },
-  plugins: [],
+// ============================
+// vite.config.js
+// ============================
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+export default defineConfig({ plugins: [react()] })
+
+// ============================
+// index.html
+// ============================
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saksaphani</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+// ============================
+// vercel.json
+// ============================
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [ { "source": "/(.*)", "destination": "/index.html" } ]
 }
-EOL
 
-cat > globals.css <<EOL
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// ============================
+// src/main.jsx
+// ============================
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 
-:root { --gold: #FFD700; }
-body { background-color: #000; color: #fff; font-family: sans-serif; }
-EOL
+// ============================
+// src/App.jsx
+// ============================
+import React from 'react';
+import SellBusinessPage from './SellBusinessPage';
+export default function App() { return <SellBusinessPage />; }
 
-cat > .env.example <<EOL
-MONGO_URI=YOUR_MONGO_URI
-JWT_SECRET=YOUR_JWT_SECRET
-STRIPE_SECRET_KEY=YOUR_STRIPE_SECRET_KEY
-NEXT_PUBLIC_URL=http://localhost:3000
-PAYPAL_CLIENT_ID=YOUR_PAYPAL_CLIENT_ID
-PAYPAL_SECRET=YOUR_PAYPAL_SECRET
-EOL
+// ============================
+// src/SellBusinessPage.jsx
+// ============================
+import React from 'react';
+export default function SellBusinessPage() {
+  return (
+    <div style={{ fontFamily: 'Arial', padding: '20px', maxWidth: '700px', margin: 'auto' }}>
+      <h1 style={{ textAlign: 'center', color: '#333' }}>Saksaphani</h1>
 
-# =========================
-# إنشاء Models
-# =========================
-cat > models/User.js <<EOL
-import mongoose from "mongoose";
-const UserSchema = new mongoose.Schema({ name:{type:String,required:true}, email:{type:String,required:true,unique:true}, password:{type:String,required:true}, role:{type:String,enum:["user","admin"],default:"user"} },{timestamps:true});
-export default mongoose.models.User || mongoose.model("User",UserSchema);
-EOL
+      <img
+        src="https://via.placeholder.com/700x300.png?text=Saksaphani+Store"
+        alt="Store"
+        style={{ width: '100%', borderRadius: '10px', marginBottom: '20px' }}
+      />
 
-cat > models/Product.js <<EOL
-import mongoose from "mongoose";
-const ProductSchema = new mongoose.Schema({ title:{type:String,required:true}, description:String, price:{type:Number,required:true}, category:String, images:[String], inStock:{type:Boolean,default:true}},{timestamps:true});
-export default mongoose.models.Product || mongoose.model("Product",ProductSchema);
-EOL
+      <h2>بيع نشاط تجاري جاهز</h2>
+      <p>
+        هذا الموقع مخصص لبيع مشروعك التجاري <strong>Saksaphani</strong>. يمكنك التواصل مباشرة
+        للحصول على جميع التفاصيل.
+      </p>
 
-cat > models/Order.js <<EOL
-import mongoose from "mongoose";
-const OrderSchema = new mongoose.Schema({ userId:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true}, products:[{productId:{type:mongoose.Schema.Types.ObjectId,ref:"Product"},qty:{type:Number,default:1}}], total:{type:Number,required:true}, paymentMethod:{type:String,enum:["card","paypal","cod"],default:"paypal"}, status:{type:String,enum:["pending","paid","shipped","completed","canceled"],default:"pending"}, shippingInfo:{fullname:String,address:String,city:String,country:String,phone:String}},{timestamps:true});
-export default mongoose.models.Order || mongoose.model("Order",OrderSchema);
-EOL
+      <h3>معلومات الاتصال</h3>
+      <ul>
+        <li><strong>Email:</strong> almohgirmohcine@gmail.com</li>
+        <li><strong>Téléphone:</strong> +212610106321</li>
+      </ul>
 
-cat > models/Coupon.js <<EOL
-import mongoose from "mongoose";
-const CouponSchema = new mongoose.Schema({ code:{type:String,required:true,unique:true}, discount:{type:Number,required:true}, expiresAt:{type:Date,required:true}, isActive:{type:Boolean,default:true}},{timestamps:true});
-export default mongoose.models.Coupon || mongoose.model("Coupon",CouponSchema);
-EOL
-
-# =========================
-# إنشاء Lib
-# =========================
-cat > lib/db.js <<EOL
-import mongoose from "mongoose";
-export const connectDB=async()=>{ if(mongoose.connection.readyState>=1) return; try{await mongoose.connect(process.env.MONGO_URI);console.log("MongoDB Connected");}catch(err){console.error("DB Error:",err);} }
-EOL
-
-cat > lib/auth.js <<EOL
-import jwt from "jsonwebtoken"; import User from "../models/User"; import { connectDB } from "./db"; export const verifyToken=async(token)=>{ await connectDB(); try{const decoded=jwt.verify(token,process.env.JWT_SECRET); return await User.findById(decoded.id);}catch{return null;} }
-EOL
-
-cat > lib/validations.js <<EOL
-export const validateRegister=(data)=>{return data.name && data.email && data.password;}
-export const validateProduct=(data)=>{return data.title && data.price && data.category;}
-EOL
-
-# =========================
-# ضغط كل المشروع في ZIP
-# =========================
-cd ..
-zip -r Saksaphani.zip Saksaphani
-echo "ZIP file created: Saksaphani.zip"
+      <button style={{ padding: '12px 20px', background: 'black', color: 'white', borderRadius: '8px', cursor: 'pointer' }}>
+        اتصل الآن
+      </button>
+    </div>
+  );
+}
